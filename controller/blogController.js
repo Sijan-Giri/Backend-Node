@@ -2,6 +2,7 @@ const Blog = require("../model/blogModel");
 
 exports.createBlog = async(req,res) => {
     const {title , subtitle , description} = req.body;
+    const {image} = req.file;
     if(!title || !subtitle || !description) {
         return res.status(400).json({
             message : "Please provide title , subtitle , description"
@@ -11,7 +12,8 @@ exports.createBlog = async(req,res) => {
     const blog = await Blog.create({
         title,
         subtitle,
-        description
+        description,
+        image
     })
 
     res.status(200).json({
