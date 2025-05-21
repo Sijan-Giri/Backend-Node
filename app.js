@@ -3,6 +3,11 @@ const connectDatabase = require("./database/db_connect");
 const app = express();
 require("dotenv").config();
 const blogRoute = require("./routes/blogRoute");
+const cors = require('cors')
+
+app.use(cors({
+    origin : "http://localhost:5173"
+}))
 
 app.use(express.json());
 
