@@ -3,7 +3,13 @@ const fs = require('fs')
 
 exports.createBlog = async(req,res) => {
     const {title , subtitle , description} = req.body;
-    const image = req.file.filename;
+    let filename;
+    if(req.file){
+        filename = "http://localhost:3000/" + req.file.filename;
+    }
+    else {
+        filename = "https://imgs.search.brave.com/K6hVeZBEzyEWq7XzsOQ7dlSOR1medhpgGQ8rotY9C_8/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9pbWdz/LnNlYXJjaC5icmF2/ZS5jb20vM2Z0QUxn/WU4xVEJDdnBUQmo2/SHNRaTYzMFgtVGMz/YmEtYTNZUnlKMmxJ/cy9yczpmaXQ6NTAw/OjA6MDowL2c6Y2Uv/YUhSMGNITTZMeTlw/YldjdS9abkpsWlhC/cGF5NWpiMjB2L1pu/SmxaUzF3YUc5MGJ5/OXcvY205bmNtRnRi/V2x1WnkxaS9ZV05y/WjNKdmRXNWtMV052/L2JHeGhaMlZmTWpN/dE1qRTAvT1Rrd01U/YzNPUzVxY0djXy9j/MlZ0ZEQxaGFYTmZh/SGxpL2NtbGtKbmM5/TnpRdw.jpeg"
+    }
     if(!title || !subtitle || !description) {
         return res.status(400).json({
             message : "Please provide title , subtitle , description"
@@ -14,7 +20,7 @@ exports.createBlog = async(req,res) => {
         title,
         subtitle,
         description,
-        image
+        image : filename
     })
 
     res.status(200).json({
